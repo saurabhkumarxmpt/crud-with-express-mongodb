@@ -17,4 +17,43 @@ router.post('/adduser', async(req,res)=>{
     }
 });
 
+//Find All Users
+
+router.get('/allusers', async(req,res)=>{
+        try{
+            const users= await User.find();
+            res.json(users);
+        }catch(err){
+            res.status(500).json({"message":err.message});
+        };
+});
+
+
+//Find One User by userId
+
+router.get('/find/:id',async(req,res)=>{
+    try{
+        const userId=parseInt(req.params.id);
+        const user=await User.findOne({userId});
+        res.json(user);
+    }catch(err){
+        res.status(500).json({"message":err.message});
+    }
+});
+
+//Find And Update User
+
+router.put("/update/:id",async(req,res)=>{
+    try{
+        const userId=parseInt(req.params.id);
+        const user=await User.findOneAndUpdate({userId},req.body,{new:true});
+        user 
+        ? res.json({message:'User Update Succesfully'})
+        : res.status(404).json({message:'User not found'});
+    }catch(err){
+        res.status(500).json({"message":err.message});
+    };
+});
+
+
 module.exports=router;
