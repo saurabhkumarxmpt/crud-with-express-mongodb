@@ -1,10 +1,11 @@
 const express=require('express');
+const database=require("./database");  //import database connection
 const app=express();
 const PORT=3000;
 
-//Add Json middleware 
 app.use(express.json());
 
+database(); // Add Database
 
 //Simple Route
 app.get("/",(req,res)=>{
