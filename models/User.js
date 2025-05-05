@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-const Counter=require('./counterModel');
+const Counter=require('./counterModel'); // import couter file 
 
 const userSchema=new mongoose.Schema({
     userId:{type:Number,unique:true},
@@ -7,6 +7,11 @@ const userSchema=new mongoose.Schema({
     email:String,
     age:Number
 });
+
+
+// This section automatically increments the "userId" field using the counter model.
+// The counter is defined in a separate file and helps create a user-friendly, auto-incrementing ID
+// in addition to MongoDB's default ObjectId.
 
 userSchema.pre('save', async function (next) {
     if (this.isNew) {

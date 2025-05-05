@@ -1,6 +1,6 @@
 const express=require('express');
 const database=require("./database");  //import database connection
-const users=require('./routes/users');
+const users=require('./routes/users'); // import routes 
 const app=express();
 const PORT=3000;
 
@@ -8,7 +8,7 @@ app.use(express.json());
 
 database(); // Add Database
 
-app.use('/',users);
+app.use('/',users); // add router file 
 
 //Simple Route
 app.get("/",(req,res)=>{
