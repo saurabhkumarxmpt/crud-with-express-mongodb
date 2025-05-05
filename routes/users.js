@@ -17,11 +17,11 @@ router.post('/adduser', async(req,res)=>{
     }
 });
 
-//Find All Users
 
+//Find All Users
 router.get('/allusers', async(req,res)=>{
         try{
-            const users= await User.find();
+            const users= await User.find(); //find all users
             res.json(users);
         }catch(err){
             res.status(500).json({"message":err.message});
@@ -30,23 +30,22 @@ router.get('/allusers', async(req,res)=>{
 
 
 //Find One User by userId
-
 router.get('/find/:id',async(req,res)=>{
     try{
         const userId=parseInt(req.params.id);
-        const user=await User.findOne({userId});
+        const user=await User.findOne({userId}); //find One user
         res.json(user);
     }catch(err){
         res.status(500).json({"message":err.message});
     }
 });
 
-//Find And Update User
 
+//Find And Update User
 router.put("/update/:id",async(req,res)=>{
     try{
         const userId=parseInt(req.params.id);
-        const user=await User.findOneAndUpdate({userId},req.body,{new:true});
+        const user=await User.findOneAndUpdate({userId},req.body,{new:true}); //find and Update User
         user 
         ? res.json({message:'User Update Succesfully'})
         : res.status(404).json({message:'User not found'});
@@ -55,5 +54,18 @@ router.put("/update/:id",async(req,res)=>{
     };
 });
 
+
+//Find and delete a user
+router.delete('/delete/:id', async(req,res)=>{
+    try{
+    const userId=parseInt(req.params.id);
+    const user= await User.findOneAndDelete({userId}); //delete A User
+    user
+    ? res.json({message:'user delete sucessFully'})
+    :res.status(404).json({message:'user not found'});  
+    }catch(err){
+        res.status(500).json({"message":err.message});
+    };
+});
 
 module.exports=router;
