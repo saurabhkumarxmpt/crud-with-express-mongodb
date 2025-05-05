@@ -8,14 +8,14 @@ const userSchema=new mongoose.Schema({
     age:Number
 });
 
-userSchema.pre('save', async function(next){
-    if(this.isNew){
-        const counter= await Counter.findOneAndUpdate(
-            {id:'userId'},
-            {$inc: {seq: 1}},
-            {new:true,upsert:true}
+userSchema.pre('save', async function (next) {
+    if (this.isNew) {
+        const counter = await Counter.findOneAndUpdate(
+            { id: 'userId' },
+            { $inc: { seq: 1 } },
+            { new: true, upsert: true }
         );
-        this.userId =counter.seq;
+        this.userId = counter.seq;
     }
     next();
 });
